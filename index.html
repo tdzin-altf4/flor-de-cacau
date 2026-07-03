@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flor de Cacau — Chocolateria Artesanal</title>
+<meta name="description" content="Flor de Cacau — bombons e barras de chocolate artesanal, temperado à mão em pequenos lotes.">
+<style>
+  :root{
+    --cacao:#3E2419;
+    --cacao-deep:#241209;
+    --caramel:#C48A4A;
+    --caramel-deep:#9C6A30;
+    --cream:#FBF3E8;
+    --cream-2:#F2E4D0;
+    --ink-soft:#6B5C4C;
+    --line:#E3D2B8;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--cream); color:var(--cacao-deep); font-family:Georgia,'Iowan Old Style',serif; line-height:1.65;}
+  a{color:inherit; text-decoration:none;}
+  .wrap{max-width:1100px; margin:0 auto; padding:0 36px;}
+  .sans{font-family:'Segoe UI',-apple-system,Helvetica,Arial,sans-serif;}
+
+  nav{position:sticky; top:0; z-index:50; background:rgba(251,243,232,0.92); backdrop-filter:blur(8px); border-bottom:1px solid var(--line);}
+  .nav-row{display:flex; justify-content:space-between; align-items:center; padding:22px 36px;}
+  .brand{font-size:21px; letter-spacing:0.3px; display:flex; align-items:center; gap:10px;}
+  .brand .drip{width:12px; height:16px; border-radius:50% 50% 50% 0; background:var(--caramel); transform:rotate(45deg);}
+  .brand span{color:var(--caramel-deep);}
+  .nav-links{display:flex; gap:32px; font-family:'Segoe UI',sans-serif;}
+  .nav-links a{font-size:12.5px; letter-spacing:1px; text-transform:uppercase; color:var(--ink-soft);}
+  .nav-links a:hover{color:var(--caramel-deep);}
+  .menu-toggle{display:none; background:none; border:none; font-size:22px; cursor:pointer; color:var(--cacao-deep);}
+
+  /* HERO — melting pot swirl */
+  .hero{padding:60px 0 0; position:relative; overflow:hidden;}
+  .hero-grid{display:grid; grid-template-columns:1.05fr 0.95fr; gap:56px; align-items:center; position:relative; z-index:1;}
+  .eyebrow{font-family:'Segoe UI',sans-serif; font-size:12.5px; letter-spacing:2px; text-transform:uppercase; color:var(--caramel-deep); margin-bottom:22px;}
+  h1{font-weight:400; font-size:46px; line-height:1.18; margin-bottom:24px;}
+  h1 em{font-style:italic; color:var(--caramel-deep);}
+  .hero p{font-size:16.5px; color:var(--ink-soft); max-width:440px; margin-bottom:32px;}
+  .btn{font-family:'Segoe UI',sans-serif; font-size:12.5px; letter-spacing:1px; text-transform:uppercase; padding:15px 28px; display:inline-block; transition:all .25s ease;}
+  .btn-solid{background:var(--cacao-deep); color:var(--cream);}
+  .btn-solid:hover{background:var(--cacao);}
+  .btn-line{border:1px solid var(--cacao-deep); color:var(--cacao-deep); margin-left:12px;}
+  .btn-line:hover{background:var(--cacao-deep); color:var(--cream);}
+
+  .melt-stage{display:flex; justify-content:center; perspective:800px;}
+  .melt-pot{
+    width:min(70vw,320px); aspect-ratio:1; border-radius:50%; position:relative;
+    box-shadow:0 30px 60px rgba(36,18,9,0.25);
+  }
+  .melt-swirl{
+    position:absolute; inset:0; border-radius:50%; overflow:hidden; will-change:transform;
+    background:conic-gradient(from 0deg, #6B3F26, #3E2419 20%, #7A4A2C 40%, #241209 60%, #6B3F26 80%, #3E2419 100%);
+  }
+  .melt-swirl::before{
+    content:''; position:absolute; inset:8%; border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, rgba(255,255,255,0.12), transparent 60%);
+  }
+  .melt-rim{ position:absolute; inset:-6px; border-radius:50%; border:6px solid var(--caramel); pointer-events:none; }
+
+  section{padding:90px 0;}
+  .section-head{max-width:560px; margin:0 auto 52px; text-align:center;}
+  .section-head .eyebrow{margin-bottom:16px;}
+  h2{font-weight:400; font-size:34px;}
+  h2 em{font-style:italic; color:var(--caramel-deep);}
+  .section-head p{color:var(--ink-soft); font-size:15px; margin-top:14px; font-family:'Segoe UI',sans-serif;}
+
+  /* BOMBONS — praline tray, recessed cavities */
+  .tray{
+    background:var(--cream-2); border-radius:18px; padding:24px;
+    display:grid; grid-template-columns:repeat(4,1fr); gap:18px;
+    box-shadow:inset 0 2px 10px rgba(36,18,9,0.15);
+  }
+  .cavity{
+    background:var(--cream); border-radius:14px; padding:16px 14px 20px;
+    box-shadow:inset 0 3px 8px rgba(36,18,9,0.18), 0 2px 4px rgba(255,255,255,0.5);
+  }
+  .cavity-photo{aspect-ratio:1/1; border-radius:10px; overflow:hidden; margin-bottom:12px;}
+  .cavity-photo img{width:100%; height:100%; object-fit:cover; display:block; transition:transform .4s ease;}
+  .cavity:hover .cavity-photo img{transform:scale(1.08);}
+  .cavity h3{font-size:15.5px; margin-bottom:4px;}
+  .cavity .price{font-family:'Segoe UI',sans-serif; font-size:13px; color:var(--caramel-deep);}
+
+  /* CURVA DE TEMPERAGEM — unique svg chart */
+  .temper{background:var(--cacao-deep); color:var(--cream);}
+  .temper-inner{display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center;}
+  .temper-text .eyebrow{color:var(--caramel);}
+  .temper-text p{color:#D8C7B0; font-size:15px; margin-top:14px; margin-bottom:24px; font-family:'Segoe UI',sans-serif; max-width:420px;}
+  .curve-chart{background:rgba(251,243,232,0.05); border:1px solid rgba(251,243,232,0.15); border-radius:12px; padding:24px;}
+  .curve-chart svg{width:100%; height:auto;}
+  .curve-labels{display:flex; justify-content:space-between; font-family:'Segoe UI',sans-serif; font-size:11px; color:#B8A88E; margin-top:10px; text-transform:uppercase; letter-spacing:0.5px;}
+
+  /* SOBRE */
+  .about-grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:56px; align-items:center;}
+  .about-photo{aspect-ratio:4/3; overflow:hidden; border-radius:16px;}
+  .about-photo img{width:100%; height:100%; object-fit:cover; display:block;}
+  .about-text p{color:var(--ink-soft); margin-bottom:16px; font-size:15.5px; font-family:'Segoe UI',sans-serif;}
+  .stats{display:flex; gap:36px; margin-top:24px; flex-wrap:wrap;}
+  .stat strong{display:block; font-size:1.8rem; color:var(--caramel-deep);}
+  .stat span{color:var(--ink-soft); font-size:0.82rem; font-family:'Segoe UI',sans-serif;}
+
+  .contact-inner{display:grid; grid-template-columns:1fr 1fr; gap:50px; align-items:center;}
+  .info-row{padding:16px 0; border-bottom:1px solid var(--line); font-size:15px; font-family:'Segoe UI',sans-serif;}
+  .info-row span{display:block; font-size:11px; letter-spacing:1px; text-transform:uppercase; color:var(--ink-soft); margin-bottom:5px;}
+
+  footer{border-top:1px solid var(--line); padding:34px 0; font-family:'Segoe UI',sans-serif;}
+  .foot-row{display:flex; justify-content:space-between; flex-wrap:wrap; gap:14px; font-size:13px; color:var(--ink-soft);}
+
+  /* Reveal suave ao rolar (sem blur) */
+  .reveal{ opacity:0; transform:translateY(26px); transition:opacity .7s ease, transform .7s ease; }
+  .reveal.in-view{ opacity:1; transform:translateY(0); }
+
+  @media (prefers-reduced-motion: reduce){
+    .melt-swirl{ transform:none !important; }
+    .reveal{ opacity:1 !important; transform:none !important; transition:none; }
+  }
+
+  @media(max-width:900px){
+    .nav-links{
+      display:none; position:fixed; top:66px; left:0; right:0; z-index:60;
+      flex-direction:column; align-items:center; gap:20px;
+      background:var(--cream); border-bottom:1px solid var(--line); padding:26px 0;
+    }
+    .nav-links.open{display:flex;}
+    .menu-toggle{display:block;}
+    .hero-grid{grid-template-columns:1fr;}
+    h1{font-size:32px;}
+    .tray{grid-template-columns:1fr 1fr;}
+    .temper-inner{grid-template-columns:1fr;}
+    .about-grid{grid-template-columns:1fr;}
+    .contact-inner{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-row wrap" style="padding-left:0; padding-right:0;">
+    <div class="brand"><span class="drip"></span>Flor de Cacau</div>
+    <div class="nav-links" id="navLinks">
+      <a href="#bombons">Bombons</a>
+      <a href="#temperagem">Temperagem</a>
+      <a href="#sobre">Sobre</a>
+      <a href="#contato">Visitar</a>
+    </div>
+    <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<header class="hero wrap">
+  <div class="hero-grid">
+    <div>
+      <div class="eyebrow">Chocolataria de origem única</div>
+      <h1>Chocolate que carrega<br>o <em>terroir</em> do cacau que o originou.</h1>
+      <p>Trabalhamos com cacau de fazendas parceiras da Bahia, temperado à mão, em lotes pequenos — sem manteiga vegetal, sem atalho.</p>
+      <a href="#bombons" class="btn btn-solid">Ver bombons da semana</a>
+      <a href="#contato" class="btn btn-line">Encomendar caixa</a>
+    </div>
+    <div class="melt-stage">
+      <div class="melt-pot">
+        <div class="melt-swirl" id="meltSwirl"></div>
+        <div class="melt-rim"></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="bombons" class="wrap">
+  <div class="section-head reveal">
+    <div class="eyebrow">Caixa da semana</div>
+    <h2>Oito bombons, <em>uma só safra</em></h2>
+    <p>Recheios trocam conforme a fruta da estação — a casca de chocolate é sempre 70% cacau.</p>
+  </div>
+  <div class="tray">
+    <div class="cavity reveal">
+      <div class="cavity-photo"><img src="https://images.pexels.com/photos/36914951/pexels-photo-36914951.jpeg?auto=compress&cs=tinysrgb&w=300" alt="Bombom artesanal de chocolate"></div>
+      <h3>Ganache de Maracujá</h3>
+      <div class="price">R$ 8,50</div>
+    </div>
+    <div class="cavity reveal" style="transition-delay:.05s">
+      <div class="cavity-photo"><img src="https://images.pexels.com/photos/27850066/pexels-photo-27850066.jpeg?auto=compress&cs=tinysrgb&w=300" alt="Trufa de chocolate amargo"></div>
+      <h3>Trufa 70% Amargo</h3>
+      <div class="price">R$ 7,00</div>
+    </div>
+    <div class="cavity reveal" style="transition-delay:.1s">
+      <div class="cavity-photo"><img src="https://images.pexels.com/photos/31488472/pexels-photo-31488472.jpeg?auto=compress&cs=tinysrgb&w=300" alt="Bombom recheado de caramelo"></div>
+      <h3>Caramelo Salgado</h3>
+      <div class="price">R$ 8,00</div>
+    </div>
+    <div class="cavity reveal" style="transition-delay:.15s">
+      <div class="cavity-photo"><img src="https://images.pexels.com/photos/8627518/pexels-photo-8627518.jpeg?auto=compress&cs=tinysrgb&w=300" alt="Bombons artesanais variados"></div>
+      <h3>Seleção da Casa</h3>
+      <div class="price">R$ 42 / caixa</div>
+    </div>
+  </div>
+</section>
+
+<section id="temperagem" class="temper">
+  <div class="wrap temper-inner">
+    <div class="temper-text">
+      <div class="eyebrow sans">Como trabalhamos</div>
+      <h2>A curva que <em style="color:var(--caramel);">dá o brilho</em></h2>
+      <p>Cada lote passa pela mesma curva de temperagem — sem isso, o chocolate perde o estalo e o brilho característicos.</p>
+      <a href="#contato" class="btn btn-solid">Agendar visita à fábrica</a>
+    </div>
+    <div>
+      <div class="curve-chart">
+        <svg viewBox="0 0 300 140" preserveAspectRatio="xMidYMid meet">
+          <polyline points="10,100 70,20 140,110 190,55 280,60" fill="none" stroke="var(--caramel)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="10" cy="100" r="4" fill="var(--cream)"/>
+          <circle cx="70" cy="20" r="4" fill="var(--cream)"/>
+          <circle cx="140" cy="110" r="4" fill="var(--cream)"/>
+          <circle cx="190" cy="55" r="4" fill="var(--cream)"/>
+          <circle cx="280" cy="60" r="4" fill="var(--cream)"/>
+        </svg>
+        <div class="curve-labels">
+          <span>45°C derrete</span>
+          <span>27°C resfria</span>
+          <span>31°C trabalha</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="sobre" class="wrap">
+  <div class="about-grid">
+    <div class="about-photo reveal">
+      <img src="https://images.pexels.com/photos/6035321/pexels-photo-6035321.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Chocolate derretendo em tigela de aço">
+    </div>
+    <div class="about-text reveal" style="transition-delay:.1s">
+      <div class="eyebrow">Nossa história</div>
+      <h2 style="margin-bottom:18px;">Do cacau da roça <em>ao bombom</em></h2>
+      <p>Começamos comprando cacau direto de uma cooperativa baiana, sem intermediário, e trazendo a fermentação e secagem para dentro do nosso controle de qualidade.</p>
+      <p>Cada barra é temperada à mão — nada de chocolate industrializado derretido de novo.</p>
+      <div class="stats">
+        <div class="stat"><strong>7+</strong><span>Anos de chocolataria</span></div>
+        <div class="stat"><strong>70%</strong><span>Cacau mínimo</span></div>
+        <div class="stat"><strong>0%</strong><span>Manteiga vegetal</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contato" class="wrap">
+  <div class="contact-inner">
+    <div>
+      <div class="section-head reveal" style="text-align:left; margin-bottom:24px;">
+        <div class="eyebrow">Visite a loja</div>
+        <h2>Aberto de <em>terça a domingo</em></h2>
+      </div>
+      <a href="#" class="btn btn-solid">Chamar no WhatsApp</a>
+    </div>
+    <div>
+      <div class="info-row"><span>Endereço</span>Rua do Cacau, 210 — Centro</div>
+      <div class="info-row"><span>Horário</span>Terça a domingo, 10h às 19h</div>
+      <div class="info-row"><span>Telefone</span>(71) 99666-4433</div>
+      <div class="info-row"><span>E-mail</span>oi@flordecacau.com.br</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-row">
+    <div>© 2026 Flor de Cacau — Chocolataria Artesanal</div>
+    <div>TEMPERADO À MÃO, SEMPRE</div>
+  </div>
+</footer>
+
+<script>
+  const menuToggle = document.getElementById('menuToggle');
+  const navLinks = document.getElementById('navLinks');
+  menuToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => navLinks.classList.remove('open'));
+  });
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!reduceMotion) {
+    // Chocolate derretido gira/redemoinha na tigela conforme a rolagem
+    const meltSwirl = document.getElementById('meltSwirl');
+    function onScroll() {
+      if (meltSwirl) {
+        meltSwirl.style.transform = `rotate(${window.scrollY * 0.3}deg)`;
+      }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+
+  const revealTargets = document.querySelectorAll('.reveal');
+  if (reduceMotion || !('IntersectionObserver' in window)) {
+    revealTargets.forEach(el => el.classList.add('in-view'));
+  } else {
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    revealTargets.forEach(el => revealObserver.observe(el));
+  }
+</script>
+
+</body>
+</html>
