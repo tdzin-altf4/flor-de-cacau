@@ -5,6 +5,39 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Flor de Cacau — Chocolateria Artesanal</title>
 <meta name="description" content="Flor de Cacau — bombons e barras de chocolate artesanal, temperado à mão em pequenos lotes.">
+<link rel="canonical" href="https://tdzin-altf4.github.io/flor-de-cacau/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23FBF3E8'/%3E%3Ccircle cx='16' cy='16' r='11' fill='%233E2419'/%3E%3Ccircle cx='16' cy='16' r='11' fill='none' stroke='%23C48A4A' stroke-width='2'/%3E%3C/svg%3E">
+
+<meta property="og:title" content="Flor de Cacau — Chocolataria Artesanal">
+<meta property="og:description" content="Bombons e barras de chocolate artesanal, temperado à mão em pequenos lotes.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://tdzin-altf4.github.io/flor-de-cacau/">
+<meta property="og:image" content="https://images.pexels.com/photos/6035321/pexels-photo-6035321.jpeg?auto=compress&cs=tinysrgb&w=1200">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Flor de Cacau — Chocolataria Artesanal">
+<meta name="twitter:description" content="Bombons e barras de chocolate artesanal, temperado à mão em pequenos lotes.">
+<meta name="twitter:image" content="https://images.pexels.com/photos/6035321/pexels-photo-6035321.jpeg?auto=compress&cs=tinysrgb&w=1200">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Flor de Cacau",
+  "description": "Chocolataria artesanal de origem única.",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Rua do Cacau, 210 — Centro"
+  },
+  "telephone": "+5571996664433",
+  "email": "oi@flordecacau.com.br",
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": ["Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+    "opens": "10:00",
+    "closes": "19:00"
+  }
+}
+</script>
 <style>
   :root{
     --cacao:#3E2419;
@@ -20,6 +53,11 @@
   html{scroll-behavior:smooth;}
   body{background:var(--cream); color:var(--cacao-deep); font-family:Georgia,'Iowan Old Style',serif; line-height:1.65;}
   a{color:inherit; text-decoration:none;}
+  a:focus-visible, button:focus-visible{outline:2px solid var(--caramel-deep); outline-offset:3px; border-radius:2px;}
+
+  .skip-link{position:absolute; left:-999px; top:auto; background:var(--cacao-deep); color:var(--cream); padding:12px 20px; z-index:100; font-size:13px;}
+  .skip-link:focus{left:16px; top:16px;}
+
   .wrap{max-width:1100px; margin:0 auto; padding:0 36px;}
   .sans{font-family:'Segoe UI',-apple-system,Helvetica,Arial,sans-serif;}
 
@@ -114,8 +152,11 @@
   .reveal.in-view{ opacity:1; transform:translateY(0); }
 
   @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
     .melt-swirl{ transform:none !important; }
     .reveal{ opacity:1 !important; transform:none !important; transition:none; }
+    .cavity-photo img{ transition:none; }
+    .cavity:hover .cavity-photo img{ transform:none; }
   }
 
   @media(max-width:900px){
@@ -133,9 +174,18 @@
     .about-grid{grid-template-columns:1fr;}
     .contact-inner{grid-template-columns:1fr;}
   }
+
+  @media(max-width:380px){
+    .wrap{padding:0 20px;}
+    h1{font-size:27px;}
+    h2{font-size:28px;}
+    .tray{grid-template-columns:1fr;}
+  }
 </style>
 </head>
 <body>
+
+<a href="#conteudo" class="skip-link">Pular para o conteúdo</a>
 
 <nav>
   <div class="nav-row wrap" style="padding-left:0; padding-right:0;">
@@ -146,13 +196,13 @@
       <a href="#sobre">Sobre</a>
       <a href="#contato">Visitar</a>
     </div>
-    <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+    <button class="menu-toggle" id="menuToggle" aria-label="Menu" aria-expanded="false" aria-controls="navLinks">
       <span></span><span></span><span></span>
     </button>
   </div>
 </nav>
 
-<header class="hero wrap">
+<header class="hero wrap" id="conteudo">
   <div class="hero-grid">
     <div>
       <div class="eyebrow">Chocolataria de origem única</div>
@@ -178,22 +228,22 @@
   </div>
   <div class="tray">
     <div class="cavity reveal">
-      <div class="cavity-photo"><img src="https://images.pexels.com/photos/36914951/pexels-photo-36914951.jpeg?auto=compress&cs=tinysrgb&w=300" alt="Bombom artesanal de chocolate"></div>
+      <div class="cavity-photo"><img src="https://images.pexels.com/photos/36914951/pexels-photo-36914951.jpeg?auto=compress&cs=tinysrgb&w=300" alt="Bombom artesanal de chocolate" width="300" height="300" loading="lazy"></div>
       <h3>Ganache de Maracujá</h3>
       <div class="price">R$ 8,50</div>
     </div>
     <div class="cavity reveal" style="transition-delay:.05s">
-      <div class="cavity-photo"><img src="https://images.pexels.com/photos/27850066/pexels-photo-27850066.jpeg?auto=compress&cs=tinysrgb&w=300" alt="Trufa de chocolate amargo"></div>
+      <div class="cavity-photo"><img src="https://images.pexels.com/photos/27850066/pexels-photo-27850066.jpeg?auto=compress&cs=tinysrgb&w=300" alt="Trufa de chocolate amargo" width="300" height="300" loading="lazy"></div>
       <h3>Trufa 70% Amargo</h3>
       <div class="price">R$ 7,00</div>
     </div>
     <div class="cavity reveal" style="transition-delay:.1s">
-      <div class="cavity-photo"><img src="https://images.pexels.com/photos/31488472/pexels-photo-31488472.jpeg?auto=compress&cs=tinysrgb&w=300" alt="Bombom recheado de caramelo"></div>
+      <div class="cavity-photo"><img src="https://images.pexels.com/photos/31488472/pexels-photo-31488472.jpeg?auto=compress&cs=tinysrgb&w=300" alt="Bombom recheado de caramelo" width="300" height="300" loading="lazy"></div>
       <h3>Caramelo Salgado</h3>
       <div class="price">R$ 8,00</div>
     </div>
     <div class="cavity reveal" style="transition-delay:.15s">
-      <div class="cavity-photo"><img src="https://images.pexels.com/photos/8627518/pexels-photo-8627518.jpeg?auto=compress&cs=tinysrgb&w=300" alt="Bombons artesanais variados"></div>
+      <div class="cavity-photo"><img src="https://images.pexels.com/photos/8627518/pexels-photo-8627518.jpeg?auto=compress&cs=tinysrgb&w=300" alt="Bombons artesanais variados" width="300" height="300" loading="lazy"></div>
       <h3>Seleção da Casa</h3>
       <div class="price">R$ 42 / caixa</div>
     </div>
@@ -231,7 +281,7 @@
 <section id="sobre" class="wrap">
   <div class="about-grid">
     <div class="about-photo reveal">
-      <img src="https://images.pexels.com/photos/6035321/pexels-photo-6035321.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Chocolate derretendo em tigela de aço">
+      <img src="https://images.pexels.com/photos/6035321/pexels-photo-6035321.jpeg?auto=compress&cs=tinysrgb&w=700" alt="Chocolate derretendo em tigela de aço" width="700" height="525" loading="lazy">
     </div>
     <div class="about-text reveal" style="transition-delay:.1s">
       <div class="eyebrow">Nossa história</div>
@@ -254,13 +304,13 @@
         <div class="eyebrow">Visite a loja</div>
         <h2>Aberto de <em>terça a domingo</em></h2>
       </div>
-      <a href="#" class="btn btn-solid">Chamar no WhatsApp</a>
+      <a href="https://wa.me/5571996664433" class="btn btn-solid" target="_blank" rel="noopener">Chamar no WhatsApp</a>
     </div>
     <div>
       <div class="info-row"><span>Endereço</span>Rua do Cacau, 210 — Centro</div>
       <div class="info-row"><span>Horário</span>Terça a domingo, 10h às 19h</div>
-      <div class="info-row"><span>Telefone</span>(71) 99666-4433</div>
-      <div class="info-row"><span>E-mail</span>oi@flordecacau.com.br</div>
+      <div class="info-row"><span>Telefone</span><a href="tel:+5571996664433">(71) 99666-4433</a></div>
+      <div class="info-row"><span>E-mail</span><a href="mailto:oi@flordecacau.com.br">oi@flordecacau.com.br</a></div>
     </div>
   </div>
 </section>
@@ -275,9 +325,15 @@
 <script>
   const menuToggle = document.getElementById('menuToggle');
   const navLinks = document.getElementById('navLinks');
-  menuToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+  menuToggle.addEventListener('click', () => {
+    const isOpen = navLinks.classList.toggle('open');
+    menuToggle.setAttribute('aria-expanded', String(isOpen));
+  });
   navLinks.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => navLinks.classList.remove('open'));
+    link.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+    });
   });
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
